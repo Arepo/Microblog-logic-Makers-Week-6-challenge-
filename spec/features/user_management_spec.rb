@@ -40,12 +40,12 @@ feature "In order to user chitter as a maker I want to log in" do
 	end
 
 
-  # scenario "with incorrect credentials" do
-  #   visit '/'
-  #   expect(page).not_to have_content("Welcome, test@test.com")
-  #   sign_in('test@test.com', 'wrong')
-  #   expect(page).not_to have_content("Welcome, test@test.com")
-  # end
+	scenario "but not invalidly" do
+		visit '/'
+	    expect(page).not_to have_content("Welcome,")
+	    sign_in('test', 'passwrd')
+	    expect(page).to have_content("Sorry, your login was invalid. Please try again")
+	 end
 
 
 

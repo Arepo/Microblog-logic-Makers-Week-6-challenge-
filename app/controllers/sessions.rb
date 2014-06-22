@@ -5,5 +5,8 @@ post '/sessions/' do
 	if user
 		session[:user_id] = user.id 
 		redirect('/')
+	else
+		flash[:errors] = ["Sorry, your login was invalid. Please try again"]
+		redirect('/')
 	end
 end
