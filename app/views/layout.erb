@@ -3,8 +3,24 @@
 	<title>Twitter.gsub("T", "Ch")</title>
 </head>
 <body>
-<% if current_cheeter %>
-	Welcome to Chitter, <%= current_cheeter.username %>
-<% end %>
+	<% if current_cheeter %>
+		Welcome to Chitter, <%= current_cheeter.username %>
+	<% else %>
+		Sign in if you're an existing user:
+		<form action="/sessions/" method="post">
+			User name: <input type="text" name="loginname">
+			Password: <input type="password" name="loginpassword">
+			<input type="submit" value="Sign in">
+			<button type="submit" name="Sign in">
+		</form>
+	<% end %>
+	<% if flash[:errors] && !flash[:errors].empty? %>
+		Your submission had errors:
+		<ul id="errors">
+		<% flash[:errors].each do |error| %>
+			<li><%= error %></li>
+		<% end %>
+		</ul>
+	<% end %>
 	<%= yield %>
 </body>

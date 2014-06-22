@@ -5,6 +5,7 @@ gem 'dm-postgres-adapter'
 gem 'bcrypt-ruby'
 gem 'sinatra'
 gem 'shotgun'
+gem 'sinatra-flash'
 	
 
 	gem "rspec"

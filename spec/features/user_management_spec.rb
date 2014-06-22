@@ -1,28 +1,53 @@
 require 'spec_helper'
+require_relative '../helpers/user_helpers'
+
+include UserHelpers
 
 feature "In order to use chitter as a maker I want to sign up to the service" do 
 
-	scenario "while being logged out" do
+	scenario "and have it show that it recognises me" do
 		expect{sign_up}.to change(User, :count).by(1)
 		expect(page).to have_content("Welcome to Chitter, Bob")
 		expect(User.first.email).to eq ("mrbob@to.you")
 	end
 
-	def sign_up(name = "Bob", username = "Geldof", email = "mrbob@to.you", password = "Password")
-		visit('/cheeters/new')
-		fill_in :name, with: name
-		fill_in :username, with: username
-		fill_in :email, with: email
-		fill_in :password, with: password
-		click_button "Sign up"
+	scenario "and fail if my email is already registered" do
+		sign_up
+		expect{sign_up("Michael", "Jackson")}.not_to change(User, :count)
+	end
+
+	scenario "or if my user name is already registered" do
+		sign_up
+		expect{sign_up("Michael", "Geldof")}.not_to change(User, :count)
 	end
 
 end
 
 feature "In order to user chitter as a maker I want to log in" do
 
-end
+	before(:each) do
+		User.create(name: "test",
+					username: "tester",
+					email: "test@test.com",
+					password: "test1")
+	end
 
-feature "In order to avoid others to use my account as a maker I want to log out" do
+	scenario 'validly' do
+		visit '/'
+		expect(page).not_to have_content("Welcome,")
+		sign_in('test', 'test1')
+		expect(page).to have_content("Welcome to Chitter, tester")
+	end
+
+
+  # scenario "with incorrect credentials" do
+  #   visit '/'
+  #   expect(page).not_to have_content("Welcome, test@test.com")
+  #   sign_in('test@test.com', 'wrong')
+  #   expect(page).not_to have_content("Welcome, test@test.com")
+  # end
+
+
+
 
 end
