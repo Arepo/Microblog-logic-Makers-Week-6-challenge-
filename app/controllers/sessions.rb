@@ -10,3 +10,11 @@ post '/sessions/' do
 		redirect('/')
 	end
 end
+
+delete '/sessions/end' do
+
+	flash.next[:notice] = User.first(id: session[:user_id]).username
+	session[:user_id] = nil
+	redirect('/')
+
+end 

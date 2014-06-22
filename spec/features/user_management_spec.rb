@@ -23,7 +23,7 @@ feature "In order to use chitter as a maker I want to sign up to the service" do
 
 end
 
-feature "In order to user chitter as a maker I want to log in" do
+feature "In order to use chitter as a maker I want to log in" do
 
 	before(:each) do
 		User.create(name: "test",
@@ -39,15 +39,31 @@ feature "In order to user chitter as a maker I want to log in" do
 		expect(page).to have_content("Welcome to Chitter, tester")
 	end
 
-
 	scenario "but not invalidly" do
 		visit '/'
 	    expect(page).not_to have_content("Welcome,")
-	    sign_in('test', 'passwrd')
+	    sign_in('test', 'passweird')
 	    expect(page).to have_content("Sorry, your login was invalid. Please try again")
-	 end
+	end
 
+end
 
+feature "For some crazy reason I'll eventually want to log out" do
 
+	before(:each) do
+		User.create(name: "test",
+					username: "tester",
+					email: "test@test.com",
+					password: "test1")
+	end
+
+	scenario "when logged in" do
+		visit '/'
+		sign_in('test', 'test1')
+		expect(page).to have_content("Welcome to Chitter, tester")
+		click_button('Sign out')
+		expect(page).to have_content("Goodbye tester")
+		expect(page).not_to have_content("Welcome to Chitter,")
+	end
 
 end

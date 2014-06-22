@@ -4,14 +4,17 @@
 </head>
 <body>
 	<% if current_cheeter %>
-		Welcome to Chitter, <%= current_cheeter.username %>
+		Welcome to Chitter, <%= current_cheeter.username %>. 
+		<form action="/sessions/end" method="post"> 
+			<input type="hidden" name="_method" value="delete">
+			<input type="submit" value="Sign out">
+		</form>
 	<% else %>
 		Sign in if you're an existing user:
 		<form action="/sessions/" method="post">
 			User name: <input type="text" name="loginname">
 			Password: <input type="password" name="loginpassword">
 			<input type="submit" value="Sign in">
-			<button type="submit" name="Sign in">
 		</form>
 	<% end %>
 	<% if flash[:errors] && !flash[:errors].empty? %>
@@ -21,6 +24,9 @@
 			<li><%= error %></li>
 		<% end %>
 		</ul>
+	<% end %>
+	<% if flash[:notice] %>
+		Goodbye <%= flash[:notice] %>!
 	<% end %>
 	<%= yield %>
 </body>
