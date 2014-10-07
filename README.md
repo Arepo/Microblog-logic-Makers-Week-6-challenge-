@@ -1,9 +1,9 @@
 Microblog
 =========
 
-This was a challenge to create something with (very) basic Twitterlike functionality. 
+This was a challenge to create something with (very) basic Twitterlike functionality, and our first skirmish with Sinatra. 
 
-I took the challenge spec rather literally, so it's in plain text and doesn't do anything beyond the given specs (such as allow deletions):
+It's an MVP for the specs below, and logic only (ie in plain text).
 
 > **Features:**
 
